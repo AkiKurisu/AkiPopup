@@ -1,12 +1,15 @@
 using UnityEngine;
 using UnityEditor;
+using System;
+using System.Collections.Generic;
 namespace Kurisu.AkiPopup.Editor
 {
     [CustomPropertyDrawer(typeof(PopupSelector))]
     public class PopupSelectorDrawer : PropertyDrawer
     {
-        static readonly GUIContent k_IsNotStringLabel = new GUIContent("The property type is not string.");
-        static readonly GUIContent k_IsNotPopupSetLabel = new GUIContent("The popup type is not implemented form PopupSet.");
+        private static readonly GUIContent k_IsNotStringLabel = new GUIContent("The property type is not string.");
+        private static readonly GUIContent k_IsNotPopupSetLabel = new GUIContent("The popup type is not implemented form PopupSet.");
+        private static readonly Dictionary<Type,PopupSet> dataSetDict=new Dictionary<Type, PopupSet>();
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
             EditorGUI.BeginProperty(position,label,property);
@@ -17,7 +20,8 @@ namespace Kurisu.AkiPopup.Editor
                 if (property.propertyType == SerializedPropertyType.String) {
                 Rect popupPosition = new Rect(position);
                 popupPosition.height = EditorGUIUtility.singleLineHeight;
-                var popupSet=PopupSet.GetOrCreateSettings(popupType);
+                if(!dataSetDict.ContainsKey(popupType))dataSetDict[popupType]=PopupSet.GetOrCreateSettings(popupType);
+                PopupSet popupSet=dataSetDict[popupType];
                 int index=EditorGUI.Popup(position:popupPosition,title??label.text,selectedIndex:popupSet.GetStateID(property.stringValue),displayedOptions:popupSet.Values);
                 if(index>=0)
                 {
