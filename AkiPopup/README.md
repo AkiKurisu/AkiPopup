@@ -3,6 +3,8 @@
 
  Author: [AkiKurisu](https://github.com/AkiKurisu)
 
+<img src="Images/Example.png" width="480"/>
+
 # How to use
 
 1. Using ```PopupSelector``` Attribute to decorate string field.
