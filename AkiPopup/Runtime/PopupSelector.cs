@@ -3,7 +3,7 @@ using UnityEngine;
 namespace Kurisu.AkiPopup
 {
     [AttributeUsage(AttributeTargets.Field,AllowMultiple = false)]
-    public sealed class PopupSelector : PropertyAttribute {
+    public class PopupSelector : PropertyAttribute {
         private readonly Type mType;
         private readonly string mTitle;
         public PopupSelector(Type type)

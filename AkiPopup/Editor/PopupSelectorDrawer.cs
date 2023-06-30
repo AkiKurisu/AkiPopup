@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 namespace Kurisu.AkiPopup.Editor
 {
-    [CustomPropertyDrawer(typeof(PopupSelector))]
+    [CustomPropertyDrawer(typeof(PopupSelector),true)]
     public class PopupSelectorDrawer : PropertyDrawer
     {
         private static readonly GUIContent k_IsNotStringLabel = new GUIContent("The property type is not string.");
